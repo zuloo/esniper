@@ -1,0 +1,38 @@
+# An auction file may contain any line that is valid
+# in a configuration file (see sample_config.txt for
+# details), plus it may also have auction lines.
+#
+# An auction line contains an auction number, optionally
+# followed by a price.  If a price isn't specified, the
+# price used is the same as the previous auction line.
+#
+# You should have one auction file for each type of item
+# you are bidding on, so that you can change the quantity,
+# username, or other options to suit the item you are
+# bidding on.  For instance, you may want to buy up to 10
+# laser print cartridges, but only one digital camera.
+
+# Sample auction file for laser printer cartridges
+
+# I'd like 10 of them, and my target price is $50
+quantity = 10
+
+# seller surpluslaserjunk, shipping $15,
+# questionable reputation (so I'll only pay $40 total)
+9298389738 25
+9872749829
+9872972987
+9087289973
+
+# seller highqualityprintersupplies, shipping $8,
+# excellent reputation
+9982309829 42
+9827349827
+
+# seller nonbusinesshomeseller, shipping not mentioned
+# (assume $10), good reputation
+9287398473 35
+
+# seller lasersuppliesforcheap, lousy reputation,
+# don't buy!!!
+#9239889372 0

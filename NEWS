@@ -1,0 +1,9 @@
+Changes from esniper 2.9.0Alpha to 2.9.0Beta:
+============================================
+* added configure scripts [hoetzel]
+* relaxed depency on libcurl version
+* rewrote login
+
+Changes from esniper 2.8.1 to 2.9.0Alpha:
+=========================================
+* http handling code rewritten using libcurl [bomm]

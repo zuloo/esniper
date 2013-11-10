@@ -1,0 +1,9 @@
+This directory contains frontends that can be helpful in using esniper.
+
+snipe
+=====
+
+snipe is a shell script that should work on any unix system, or on cygwin.
+snipe runs snipes in the background, and can tell you what auction files
+are currently active.  You can get the status of a snipe or kill a
+snipe using the auction filename or pid.

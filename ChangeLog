@@ -1,0 +1,283 @@
+2013-11-10
+	* Fix bugs, that show wrong labels on information from watchlist 
+
+2012-10-24
+	* 2.28.0 released.
+
+2012-10-22
+	* Fix for bugs 3579101, 3577899, 3577438, 3559746 and maybe 3564978
+	  with error message "Auction <number>: Unknown item" caused by
+	  ebay's modification of the bid history page.
+
+2012-02-06
+	* 2.27.0 released
+	* Note: This version may still create bug reports on unsuccessful bids.
+
+2011-08-20
+	* Partial fix for various automated bug reports for pages with
+	  titles "Bid confirmation", "Place bid", "eBay Alerts" and
+	  "Buyer Requirements"
+
+2011-08-09
+	* 2.26.0 released.
+	* Note: This version will still create bug reports on unsuccessful
+	  bids because of major changes on eBay's bid result pages.
+	  We need to analyze all possible bid result pages to find a way to
+	  fix this remaining problem. Please report these expected bugs.
+
+2011-06-28
+	* Fix for another new variant of the pre-bid page
+
+2011-06-22
+	* Partial fix for 3314884: adaptation to changes on pre-bid page.
+
+2011-06-04
+	* Fixed memory leaks.
+	* 2.25.0 released.
+
+2011-05-19
+	* Fixed bug 3303419: bidpass not found
+
+2010-09-17
+	* Fixed bug 3069696: Add bad password page name
+
+2010-09-05
+	* Fixed bug 3059872: recognize captcha request, print error message, exit.
+
+2010-08-22
+	* Fixed bug 3051220: segfault when using -h or -H command line option.
+
+2010-08-15
+	* 2.24.0 released.
+
+2010-07-30
+	* Fixed bug 3035541: -lcurl must be added to LIBS instead of LDFLAGS
+
+2010-07-15
+	* Fixed bug 2938576: Does not recognize a won auction
+
+2010-06-21
+	* Added more info in automated bug reports
+
+2010-06-02
+	* Added ~ support for log directory (thanks, deadolus!)
+
+2010-05-15
+	* 2.23.0 released
+	* Fixed -m option (thanks, deadolus!)
+
+2010-05-14
+	* Fixed bug 3001249: bid history parsing bug
+
+2010-01-21
+	* 2.22.0 released
+	* Fixed bug 2936564: Can't get item number or title
+
+2010-01-06:
+	* Fixed bugs 2887061 and 2922040: Recognize "bad password" page.
+
+2009-11-03
+	* 2.21.0 released
+	* Fixed bug 2217106: MakeBidErrorBuyerBlockPrefNoLinkedPayPalAccount
+	* Fixed bug 2631855: MakeBidErrorBuyerBlockPrefItemCountLimitExceeded
+	* Fixed bug 2151466: MakeBidErrorBidGreaterThanBin_BINblock
+
+2009-10-14
+	* 2.20.0 released
+	* Fixed bug 2875827 and others: Error encountered in function ebayLogin
+	* Fixed bug 2862437 and others: Unknown time interval "Duration:"
+	                                remaining time could not be converted
+
+2008-08-04
+	* 2.19.0 released
+	* Fixed bug 2036585: enable cookies
+
+2008-04-03
+	* 2.18.1 released
+	* Fixed bug 1932457: Configure fails due to wrong curl LDFLAGS
+
+2008-04-02
+	* 2.18.0 released
+	* Fixed bug 1932025: Can't convert price.
+	* Fixed bug 1930772: Can't convert price.
+
+2008-03-16
+	* Fixed bug 1915400: sign in request during pre-bid.
+
+2008-01-17
+	* Fixed bug 1869454: Fails with Time ramining: -- (0 seconds).
+	* Fixed bug 1823864: Captcha on bid history.
+	* Fixed bug 1861822: crash parsing watch list.
+	* Fixed bug 1849113: Failed to make bid when using bid assistant
+
+2007-11-22
+	* Fixed bug 1835531, segfault on bid history.
+
+2007-10-23
+	* Fixed bug 1818692, get srcId ViewItem when bidding on closed auction.
+
+2007-10-04
+	* 2.17.1 released.
+	* Fixed bug 1807254, unknown time interval "Refresh".
+
+2007-10-02
+	* 2.17.0 released.
+
+2007-10-01
+	* Changed to  work with eBay's new bid history page (bug 1782953)
+	* Use configurable hosts in all URLs (bug 1782954)
+	* Add calls to bugReport() for many error in parsing the bid
+	  history.  Hopefully this will allow quicker response to new
+	  bid history page changes.
+	* Modified configure's libcurl check (patch 1718317)
+
+2007-06-08
+	* Fixed bug 1733869, recognize error message when seller ends
+	  auction early.
+
+2007-05-21
+	* Fix segmentation fault caused by auctions with no bids and a
+	  starting bid of $200 or more.
+
+2007-04-30
+	* Fix for bug 1710376.  Bid history parsing error on auction with
+	  no bids.
+
+2007-04-02
+	* Added captcha error.
+	* 2.16.1 released.
+
+2007-03-28
+	* 2.16.0 released.
+	* Add support for bid history without bidder name
+
+2006-12-19
+	* Added note about requirement for default column order with -m option.
+
+2006-11-27
+	* Fixed buyer & bidding history bug (need to skip over buyer history).
+	* Fixed problem with bug reports.  HTTP buffer sometimes overwritten
+	  by version number.
+
+2006-11-13
+	* Fixed myItems (-m) option.  eBay change tableName to "Id"
+
+2006-11-08
+	* Fix handling of URL escapes in username.
+
+2006-11-04
+	* 2.15.0 released.
+	* Fix bug 1579311 (and a million others), eBay changed the bid history
+	  page again.
+	* Implemented feature request 1587259, handling -i without username
+	  or password.
+	* Fix bug 1574881, bid increment comparison not always correct.
+
+2006-09-05
+	* Fix for dutch auction parsing?
+
+2006-01-05
+	* Fix bug 1352595, esniper does not encode password in URLs
+
+2005-10-19
+	* 2.14.0 released.
+	* Added version check.
+	* Fix bug 1330486, login bug causes crash.
+
+2005-10-12
+	* Fix bug 1324457, more detail on URL errors.
+
+2005-10-08
+	* 2.13.0 released.
+	* Fix bug 1315702, Login failed.
+
+2005-10-04
+	* 2.12.0 released.
+	* Fix bug 1313556, eBay login change breaks esniper.
+	* Fix bug 1275990, pagename MakeBidErrorDutchSameBidQuantity not
+	  recognized.
+
+2005-09-19
+	* Fix bug 1295057, blocked bid due to bidder location.
+	* Fix bug 1282914, blocked bid due to no paypal account.
+	* Fix bug 1252037, accept comma in price in auction file.
+	* Fix bug 1295198, FreeBSD core dump.
+
+2005-08-07
+	* Fix bug 1253692.  Fixed price auction error now handled gracefully.
+	* Fix bug 1300111, pagename MakeBidErrorCannotBidOnItem not recognized.
+
+2005-07-24
+	* Fix bug 1301934, pagename MakeBidErrorAuctionEnded not recognized.
+
+2005-07-04
+	* 2.11.0 released
+	* Fixed proxy handling.  Removed lookup of http_proxy environment
+	  variable, since libcurl does it.
+	* Fixed myItems item number parsing, including for auctions with
+	  no image.  Also added support for user notes.
+	* Enhanced bug reporting.
+
+2005-06-27
+	* Fix bug 1228701.  Time left heading has a table cell between it and
+	  the cell containing the actual time left.
+
+2005-04-19
+	* handle bid history for purchases (i.e. store items and buy-it-now
+	  with no bidding)
+
+2005-04-16
+	* added -i option: print information on given auctions and exit
+
+2005-03-09
+	* rewrote error handling in prebid and bid history
+
+2005-02-05
+	* moved getopt into util.c to make compiling on windows easier
+	* fixed handling of prebid result when auction has ended
+
+2005-01-31
+	* 2.10.0 released
+
+2005-01-26
+	* Fix bidding problem that sends esniper to PageReviewBid
+
+2005-01-21
+	* handle blank time left field in bid history.  This happens in
+	  the last second of an auction
+
+2005-01-19
+	* code cleanup thanks to lint and valgrind
+	* rewrote bid history parsing to use table parsing code.  This should
+	  resolve many little problems with bid history parsing, especially
+	  with dutch auctions
+
+2004-12-29
+	* recognize AcceptBid_HighBidder_rebid
+	* added table parsing
+	* added -m option, reads myebay watch list
+	* removed us-ascii kludge that knocked off high bit on text
+
+2004-12-19
+	* show user's max bid
+
+2004-12-16
+	* fixed segfault in http.c
+	* don't expose password in log files
+	* Use bid password (returned in preBid) instead of user password
+	  for bidding.
+	* integrated configure patch
+
+2004-12-15
+	* 2.9.0Beta released
+	* allow use of older versions of libcurl
+	* login rewrite
+	* bug report generator
+	* sort auctions by current status (winning bid already placed goes first)
+
+2004-12-06
+	* autotools patch (from hoetzel)
+
+2004-11-25
+	* Released 2.9.0Alpha
+	* Added libcurl fixes (from bomm)

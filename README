@@ -1,0 +1,7 @@
+2012-10-24
+	* 2.28.0 released.
+
+2012-10-22
+	* Fix for bugs 3579101, 3577899, 3577438, 3559746 and maybe 3564978
+	  with error message "Auction <number>: Unknown item" caused by
+	  ebay's modification of the bid history page.

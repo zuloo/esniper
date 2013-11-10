@@ -1,0 +1,16 @@
+Handle auctions better.  Place auctions in a queue ordered by the time they
+need to be updated next.  This will ensure that all auctions are updated at
+least once a day.
+
+Parse myitem list header, so that it supports fields in any order.
+
+ae_unavailable
+- esniper used to return this error in bidHistory() when it got the
+  "down for maintenace" message.
+
+Languages (German, French, ...)
+- output only.  Handling input in multiple languages (i.e. reading from
+  ebay.de, ebay.ca, etc) is too much work.  You would need to either add
+  an auction.c for each site supported, or create a meta-language describing
+  how to parse each page.  Plus eBay likes to change their output without
+  notice!

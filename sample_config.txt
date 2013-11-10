@@ -1,0 +1,40 @@
+# A configuration file contains option settings,
+# blank lines, and comments (begin with #).  The
+# default configuration file is $HOME/.esniper, and
+# if you specify an auction file, .esniper in the
+# auction file's directory as well.  If you specify a
+# configuration file using the -c command-line option,
+# then that configuration file will be the only one
+# read.
+#
+# If you set your password in a configuration file
+# and you are on a unix system, you should be the
+# owner of the file, and you should set the
+# permissions so that it is readable only by the
+# owner.
+#
+# Here are all the options.  Note that if the
+# default (as defined in esniper -H) is fine, you
+# don't need to specify it in a configuration file.
+
+# boolean parameters can be set to:
+#	true, y, yes, on, 1, enabled
+#	false, n, no, off, 0, disabled
+batch = false
+bid = yes
+debug = enabled
+reduce = y
+
+# Note: it would be nice if logdir could use ~myuser,
+# or $HOME.  Perhaps in a future version.
+logdir = /export/home/myuser/esniperlogs
+password = myebaypassword
+# Note: proxy authentication not yet supported
+proxy = http://192.168.1.1:8080/
+username = myebayusername
+
+# Note: quantity is usually set in an auction file
+quantity = 1
+# Note: seconds can also be "now", if you want to
+# bid immediately
+seconds = 10

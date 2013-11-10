@@ -1,0 +1,164 @@
+#!/bin/sh
+
+SNIPE_OUTDIR=${SNIPE_OUTDIR:-$HOME/.snipe}
+PROGNAME=`basename $0`
+
+# setup $SNIPE_OUTDIR
+if [ ! -d "$SNIPE_OUTDIR" ]; then
+	mkdir -p "$SNIPE_OUTDIR" || error "Cannot create $SNIPE_OUTDIR.  Change value of \$SNIPE_OUTDIR and try again."
+fi
+[ -r "$SNIPE_OUTDIR" -a -w "$SNIPE_OUTDIR" -a -x "$SNIPE_OUTDIR" ] || warn "Permissions problem with $SNIPE_OUTDIR, should be rwx."
+
+# avoid using Sun's crappy old awk
+AWK=`which gawk 2>/dev/null`
+AWK=${AWK:-`which nawk`}
+AWK=${AWK:-`which awk`}
+
+# need ksh or bash for subshell pid hack
+KSH=`which ksh 2>/dev/null`
+KSH=${KSH:-`which bash`}
+
+usage() {
+	[ $# -gt 0 ] && echo "$PROGNAME: $@" 1>&2
+	echo "usage:" 1>&2
+	echo "list running auctions:  $PROGNAME" 1>&2
+	echo "start auctions:         $PROGNAME auctionfile [...]" 1>&2
+	echo "get status of auctions: $PROGNAME (-i | -I num) auctionfile_or_pid [...]" 1>&2
+	echo "kill auctions:          $PROGNAME -k auctionfile_or_pid [...]" 1>&2
+	echo "kill all auctions:      $PROGNAME -k" 1>&2
+	exit 2
+}
+
+# error exitcode message
+error() {
+	exitcode="$1"
+	shift
+	echo "$PROGNAME: $@" 1>&2
+	exit "$exitcode"
+}
+
+# warn message
+warn() {
+	echo "$PROGNAME: $@" 1>&2
+}
+
+active() {
+	if grepSnipes >/dev/null 2>&1; then
+		echo "Currently active snipes:"
+		grepSnipes
+	else
+		echo "No snipes currently active."
+		false
+	fi
+}
+
+grepSnipes() {
+	ps -ef | grep "^$USER[ \\t].*[ /]esniper "
+}
+
+# killSnipes <auctionfile_or_pid>
+killSnipes() {
+	PID=`grepSnipes | awk '$NF == "'"$1"'" {print $2; exit}'`
+	if [ "$PID" = "" ]; then
+		PID=`grepSnipes | awk '$2 == "'"$1"'" {print $2; exit}'`
+		if [ "$PID" = "" ]; then
+			echo "unknown auction file or pid: $1"
+			return
+		fi
+	fi
+	kill "$PID"
+}
+
+# info <auctionfile_or_pid>
+info() {
+	outfile="$SNIPE_OUTDIR/$1.txt"
+	if [ ! -f "$outfile" ]; then
+		PID=`grepSnipes | \
+		     $AWK '$0 ~ " esniper ([^ ]* )*'"$1"'$" {print $2; exit}'`
+		if [ "$PID" = "" ]; then
+			outfile=`ls -t "$SNIPE_OUTDIR"/*.txt | $AWK '{
+				fn = $0
+				ret = getline <fn 
+				close(fn)
+				if (ret > 0 && $0 == "# esniper '"$1"'") {
+					print fn
+					exit
+				}
+			    }'`
+		else
+			outfile="$SNIPE_OUTDIR/$PID.txt"
+		fi
+		if [ ! -f "$outfile" ]; then
+			echo "Cannot find info on $1"
+			return
+		fi
+	fi
+	echo "Info on $1:"
+	case "$LINES" in
+	all) cat "$outfile";;
+	*) tail -"$LINES" "$outfile";;
+	esac
+}
+
+OP=run
+LINES=
+while getopts "iI:k" opt; do
+	case "$opt" in
+	i) OP=info; LINES=all;;
+	I) OP=info; LINES="$OPTARG";
+	   echo "$LINES" | grep '^[0-9][0-9]*$' >/dev/null 2>&1 || \
+		usage "Argument to -I must be numeric";;
+	k) OP=kill;;
+	\?) usage;;
+	esac
+done
+shift `expr $OPTIND - 1`
+
+if [ $# -eq 0 ]; then
+	case "$OP" in
+	run | info)
+		active
+		;;
+	kill)
+		if active; then
+			echo killing...
+			grepSnipes | awk '{print $2}' | xargs kill
+			# wait until processes die (hopefully)
+			for attempts in 1 2 3 4 5; do
+				grepSnipes >/dev/null 2>&1 || break
+				sleep 1
+			done
+			# what's left?
+			active
+		fi
+		;;
+	esac
+else
+	case "$OP" in
+	run)
+		for i in "$@"; do
+			if [ ! -f "$i" ]; then
+				warn "Auction file $i not found"
+				continue
+			fi
+			(PID="`"$KSH" -c 'echo $PPID'`"; \
+			 echo "$PID" >"$SNIPE_OUTDIR/lastpid"; \
+			 echo "# esniper $i" >"$SNIPE_OUTDIR/$PID.txt"; \
+			 exec esniper "$i" >>"$SNIPE_OUTDIR/$PID.txt" 2>&1) &
+		done
+		;;
+	info)
+		info "$1"
+		shift
+		for i in "$@"; do
+			echo
+			info "$i"
+		done
+		;;
+	kill)
+		for i in "$@"; do
+			killSnipes "$i"
+		done
+		;;
+	esac
+fi
