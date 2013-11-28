@@ -529,7 +529,10 @@ parseBidHistoryInternal(pageInfo_t *pp, memBuf_t *mp, auctionInfo *aip, time_t s
 		if (!strcasecmp(winner, "Member Id:"))
 		   winner = getNthNonTagFromString(row[1], 2);
 
-		aip->quantityBid = 1;
+		if (!strcasecmp(winner, "EUR"))
+		   currently = getNthNonTagFromString(row[2], 2);
+		
+        aip->quantityBid = 1;
 
 		/* current price */
 		aip->price = atof(priceFixup(currently, aip));
